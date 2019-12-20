@@ -29,11 +29,8 @@ with a Ordoird(Ubuntu 18.04) device. It should also work with any other Debian b
 ## Variables
 
 ```yaml
----
-
 system_hostname: "odroid"
-system_ssh_user_password: "odroid"
-system_ssh_user_salt: "salt"
+ssh_user: "test"
 system_locale: "en_US.UTF-8"
 system_timezone: "Europe/Stockholm"
 system_tmpfs_mounts:

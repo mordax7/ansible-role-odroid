@@ -1,9 +1,12 @@
 ---
 
-- name: setup ssh user {{ ansible_ssh_user }}
+- name: Add the user {{ ssh_user }} with a bash shell, appending the group 'admins' to the user's groups
   user:
-    name: "{{ ansible_ssh_user }}"
-    password: "{{ system_ssh_user_password|password_hash('sha512', system_ssh_user_salt) }}"
-    update_password: always
+    name: {{ ssh_user }}
+    shell: /bin/bash
+    groups: admins
+    append: yes
+    createhome: yes
     state: present
-  when: system_ssh_user_password is defined and system_ssh_user_salt is defined
+  when: ssh_user is defined
+

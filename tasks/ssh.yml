@@ -1,11 +1,21 @@
 ---
 
-- name: upload authorized keys for user {{ ansible_ssh_user }}
+- name: upload authorized keys for user {{ ssh_user }}
   authorized_key:
-    user: "{{ ansible_ssh_user }}"
+    user: "{{ ssh_user }}"
     key: "{{ item }}"
     state: present
   with_items: "{{ ssh_public_keys }}"
+
+- name: configure passwordless login for user {{ ssh_user }}
+  template:
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner={{ item.owner }}
+    group={{ item.group }}
+    mode={{ item.mode }}
+  with_items:
+    - { src: "sudoers/sudoers.j2", dest: "/etc/sudoers.d/010_{{ ssh_user }}-nopasswd", owner: "root", group: "root", mode: "0644" }
 
 - name: disable ssh remote root login
   lineinfile:
