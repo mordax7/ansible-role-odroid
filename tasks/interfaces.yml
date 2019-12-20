@@ -1,6 +1,6 @@
 ---
 
-- name: create interdace directory
+- name: create interface directory
   file:
     path: /etc/network/interfaces.d
     state: directory
