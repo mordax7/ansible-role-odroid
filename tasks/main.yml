@@ -33,10 +33,6 @@
   tags:
     - ssh
 
-- import_tasks: ufw.yml
-  tags:
-    - ufw
-
 - import_tasks: postfix.yml
   tags:
     - postfix
@@ -44,10 +40,6 @@
 - import_tasks: unattended-upgrades.yml
   tags:
     - unattended-upgrades
-
-- import_tasks: fail2ban.yml
-  tags:
-    - fail2ban
 
 - import_tasks: logwatch.yml
   tags:
