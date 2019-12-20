@@ -1,6 +1,6 @@
 ---
 - name: configure static IP
-  copy:
+  template:
     src={{ item.src }}
     dest={{ item.dest }}
     owner={{ item.owner }}
@@ -8,5 +8,6 @@
     mode={{ item.mode }}
   with_items:
     - { src: "interfaces/eth0", dest: "/etc/network/interfaces.d/eth0", owner: "root", group: "root", mode: "0644" }
+  when: inteerfaces is defined
   notify:
     - reboot host

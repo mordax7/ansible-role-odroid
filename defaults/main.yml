@@ -34,6 +34,8 @@ ssh_sshd_config: "/etc/ssh/sshd_config"
 ssh_public_keys: []
 ssh_banner:
 
+inteerfaces: ""
+
 ufw_rules:
   - {rule: "allow", port: "22", proto: "tcp"}
 ufw_allow_igmp: false
