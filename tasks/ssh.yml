@@ -1,13 +1,13 @@
 ---
 
-- name: upload authorized keys for user {{ ssh_user }}
+- name: upload authorized keys for user {{ odroid_ssh_user }}
   authorized_key:
-    user: "{{ ssh_user }}"
+    user: "{{ odroid_ssh_user }}"
     key: "{{ item }}"
     state: present
   with_items: "{{ ssh_public_keys }}"
 
-- name: configure passwordless login for user {{ ssh_user }}
+- name: configure passwordless login for user {{ odroid_ssh_user }}
   template:
     src={{ item.src }}
     dest={{ item.dest }}
@@ -15,7 +15,7 @@
     group={{ item.group }}
     mode={{ item.mode }}
   with_items:
-    - { src: "sudoers/sudoers.j2", dest: "/etc/sudoers.d/010_{{ ssh_user }}-nopasswd", owner: "root", group: "root", mode: "0644" }
+    - { src: "sudoers/sudoers.j2", dest: "/etc/sudoers.d/010_{{ odroid_ssh_user }}-nopasswd", owner: "root", group: "root", mode: "0644" }
 
 - name: disable ssh remote root login
   lineinfile:
@@ -62,11 +62,11 @@
   notify:
     - restart sshd
 
-- name: set ssh allowed users to {{ ansible_ssh_user }}
+- name: set ssh allowed users to {{ odroid_ssh_user }}
   lineinfile:
     dest: "{{ ssh_sshd_config }}"
     regexp: "^#?AllowUsers"
-    line: "AllowUsers {{ ansible_ssh_user }}"
+    line: "AllowUsers {{ odroid_ssh_user }}"
   notify:
     - restart sshd
 

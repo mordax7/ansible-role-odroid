@@ -1,12 +1,13 @@
 ---
 
-- name: Add the user {{ ssh_user }} with a bash shell, appending the group 'admins' to the user's groups
+- name: Add the user {{ odroid_ssh_user }} with a bash shell, appending the group 'admins' to the user's groups
   user:
-    name: {{ ssh_user }}
+    name: "{{ odroid_ssh_user }}"
     shell: /bin/bash
-    groups: admins
+    groups: root
     append: yes
     createhome: yes
+    password: "{{ odroid_ssh_user_password|password_hash('sha512', odroid_ssh_user_salt) }}"
+    update_password: always
     state: present
-  when: ssh_user is defined
-
+  when: odroid_ssh_user_password is defined and odroid_ssh_user_salt is defined
