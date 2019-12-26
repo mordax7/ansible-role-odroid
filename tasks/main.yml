@@ -48,7 +48,3 @@
 - import_tasks: bash.yml
   tags:
     - bash
-
-- import_tasks: interfaces.yml
-  tags:
-    - interfaces
